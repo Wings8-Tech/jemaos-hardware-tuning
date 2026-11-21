@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2025 Jema Technology. All rights reserved.
+# Copyright 2025 Wings8 Technology. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
@@ -156,14 +156,14 @@ unset_blacklist_name() {
 # Function to initialize the GRUB mount point
 init_grub_mnt() {
   [ -d $GRUB_MNT ] || mkdir $GRUB_MNT
-  if [ -n "$(cat /proc/cmdline | grep jemaos_dualboot)" ]; then
-    local dualboot_part=$(sudo cgpt find -l JEMAOS-DUAL-BOOT)
+  if [ -n "$(cat /proc/cmdline | grep wings8os_dualboot)" ]; then
+    local dualboot_part=$(sudo cgpt find -l WINGS8OS-DUAL-BOOT)
     dualboot_part=$(udevadm info -q path $dualboot_part)
     dualboot_part=$(dirname $dualboot_part)
     dualboot_part=$(basename $dualboot_part)
     dualboot_part=$(sudo cgpt find -t efi /dev/$dualboot_part | head -n1)
     sudo mount $dualboot_part $GRUB_MNT
-    CURRENT_GRUB_FILE=$GRUB_MNT/efi/jemaos/grub.cfg
+    CURRENT_GRUB_FILE=$GRUB_MNT/efi/wings8os/grub.cfg
   else
     [ -n "$(sudo mount | grep $GRUB_MNT)" ] || \
       sudo mount $(ls $(rootdev -d){12,p12} 2>/dev/null) $GRUB_MNT
