@@ -55,9 +55,9 @@ list_misc_info() {
 misc_show_menu() {
     register_item_and_description "init_suspend_mode_and_show" \
         "Switch suspend mode"
-    if grep -q jemaos_dualboot /proc/cmdline; then
+    if grep -q wings8os_dualboot /proc/cmdline; then
         register_item_and_description "init_update_refind_and_show" \
-            "Update rEFInd provided by JemaOS"
+            "Update rEFInd provided by Wings8OS"
     fi
 }
 

@@ -5,7 +5,7 @@ set -o errexit
 
 # Constants for EFI partition type and rEFInd configuration
 declare -r EFI_PARTTYPE="c12a7328-f81f-11d2-ba4b-00a0c93ec93b"
-declare -r JEMAOS_DUALLBOOT_FINGERPRINT=".jemaos_dualboot"
+declare -r WINGS8OS_DUALLBOOT_FINGERPRINT=".wings8os_dualboot"
 declare -r SUBDIR_IN_EFI="EFI"
 declare -r REFIND_DIR_IN_EFI="refind"
 declare -r REFIND_BAK_FILE="refind.backup.tar.gz"
@@ -24,10 +24,10 @@ log() {
   echo "$@" >&2
 }
 
-# Function to validate if the directory contains JemaOS rEFInd files
-assert_jemaos_refind() {
+# Function to validate if the directory contains Wings8OS rEFInd files
+assert_wings8os_refind() {
   local dir="$1"
-  local subdirs=("jemaos" "$REFIND_DIR_IN_EFI")
+  local subdirs=("wings8os" "$REFIND_DIR_IN_EFI")
   for subdir in "${subdirs[@]}"; do
     if [[ ! -d "${dir}/${SUBDIR_IN_EFI}/${subdir}" ]]; then
       log "Missing ${dir}/${SUBDIR_IN_EFI}/${subdir}"
@@ -35,8 +35,8 @@ assert_jemaos_refind() {
     fi
   done
 
-  if [[ ! -f "${dir}/${SUBDIR_IN_EFI}/${REFIND_DIR_IN_EFI}/${JEMAOS_DUALLBOOT_FINGERPRINT}" ]]; then
-    log "No ${JEMAOS_DUALLBOOT_FINGERPRINT} file found"
+  if [[ ! -f "${dir}/${SUBDIR_IN_EFI}/${REFIND_DIR_IN_EFI}/${WINGS8OS_DUALLBOOT_FINGERPRINT}" ]]; then
+    log "No ${WINGS8OS_DUALLBOOT_FINGERPRINT} file found"
     return 1
   fi
 
@@ -86,7 +86,7 @@ copy_refind() {
   local refind_file="$3"
 
   local temp_dir_to_extract=""
-  temp_dir_to_extract=$(mktemp -d -p /tmp -t update_jemaos_refind.XXXXXX)
+  temp_dir_to_extract=$(mktemp -d -p /tmp -t update_wings8os_refind.XXXXXX)
   extract_refind "$refind_file" "$temp_dir_to_extract" || { log "Failed to extract rEFInd" ; return 1; }
   local temp_refind_dir="${temp_dir_to_extract}/${REFIND_DIR_IN_EFI}"
   local target="${dir}/${SUBDIR_IN_EFI}/"
@@ -179,7 +179,7 @@ update_refind_in_partition() {
   umount "$temp_efi_mountpoint" > /dev/null 2>&1 || true
   mount -o rw "$part" "$temp_efi_mountpoint" || { log "Failed to mount $part to $temp_efi_mountpoint"; return 1; }
 
-  assert_jemaos_refind "$temp_efi_mountpoint" || { log "Not a JemaOS rEFInd partition: $part"; return 1; }
+  assert_wings8os_refind "$temp_efi_mountpoint" || { log "Not a Wings8OS rEFInd partition: $part"; return 1; }
 
   local ret=0
   if [[ "$action" = "update" ]]; then
