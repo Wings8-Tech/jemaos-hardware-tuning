@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2025 Jema Technology. All rights reserved.
+# Copyright 2025 Wings8 Technology. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
@@ -45,7 +45,7 @@ version_suffix() {
 
 # Main function to initialize the application
 main() {
-  set_appname "JemaOS Hardware Tuner"
+  set_appname "Wings8OS Hardware Tuner"
   set_appversion 0 0 1 "$(version_suffix)"
   if [[ "$1" = "--info" ]]; then
     root_display_all

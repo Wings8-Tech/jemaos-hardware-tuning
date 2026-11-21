@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2025 Jema Technology. All rights reserved.
+# Copyright 2025 Wings8 Technology. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
@@ -11,7 +11,7 @@ list_graphic_pci_info() {
   for slot in $(get_slots_by_pci_types "graphic" "display"); do
     pci_device_info $slot
   done
-  WarnMsg "Suggestions from JemaOS:"
+  WarnMsg "Suggestions from Wings8OS:"
   echo "Best compatible devices:" ${_BEST_COMPATIABLE_GCARDS[@]}  
   echo "Basic compatible devices:" ${_BASIC_COMPATIABLE_GCARDS[@]}
 }
@@ -41,7 +41,7 @@ graphic_show_menu() {
 
 # Function to display help for graphic configuration
 graphic_show_help() {
-  echo "JemaOS can only run on one graphic device at the moment. If there are two or more graphic devices in your system,\
-     JemaOS may pick one randomly. You need to block the unused device or the system will not run stably."
+  echo "Wings8OS can only run on one graphic device at the moment. If there are two or more graphic devices in your system,\
+     Wings8OS may pick one randomly. You need to block the unused device or the system will not run stably."
   WarnMsg "If you block the wrong device, you may get a black screen."
 }

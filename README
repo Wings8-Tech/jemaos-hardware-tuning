@@ -1,8 +1,8 @@
-jemaos-hardware-tuning
+wings8os-hardware-tuning
 ======================
 
 
-Hardware tuner for jemaos.
+Hardware tuner for wings8os.
 It could adjust wireless, graphic card, sound device and gesture configuration.
 
 Usage:
